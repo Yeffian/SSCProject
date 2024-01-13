@@ -2,10 +2,10 @@ import SwiftUI
 
 struct ContentView: View {
     let tasks = [
-        Event(eventName: "Eat breakfast", remainder: "Make sure to eat breakfast!", location: "Dining Room", notes: "Don't eat anything to oily", referenceImages: ["dining_table.jpg", "dining_table2.jpg"]),
-        Event(eventName: "Take breakfast meds", remainder: "Take your meds after breakfast", location: "Dining Room", notes: "Eat the meds marked 'morning'", referenceImages: ["medicine_box.jpg", "dining_table.jpg"]),
-        Event(eventName: "Eat lunch", remainder: "Make sure to eat lunch", location: "Dining Table", notes: "Get a glass of water before sitting down in case you cough", referenceImages: ["dining_table.jpg", "dining_table2.jpg"]),
-        Event(eventName: "Take lunch meds", remainder: "Take your meds after lunch", location: "Dining Room", notes: "Eat the meds marked 'afternoon'", referenceImages: ["medicine_box.jpg", "dining_table.jpg"]),
+        Event(eventName: "Eat breakfast", remainder: "Make sure to eat breakfast!", location: "Dining Room", notes: "Don't eat anything to oily", referenceImages: ["dining_table.jpg", "dining_table2.jpg"], date: CreateDate(hour: 7, minute: 30)),
+        Event(eventName: "Take breakfast meds", remainder: "Take your meds after breakfast", location: "Dining Room", notes: "Eat the meds marked 'morning'", referenceImages: ["medicine_box.jpg", "dining_table.jpg"], date: CreateDate(hour: 7, minute: 40)),
+        Event(eventName: "Eat lunch", remainder: "Make sure to eat lunch", location: "Dining Table", notes: "Get a glass of water before sitting down in case you cough", referenceImages: ["dining_table.jpg", "dining_table2.jpg"], date: CreateDate(hour: 14, minute: 30)),
+        Event(eventName: "Take lunch meds", remainder: "Take your meds after lunch", location: "Dining Room", notes: "Eat the meds marked 'afternoon'", referenceImages: ["medicine_box.jpg", "dining_table.jpg"], date: CreateDate(hour: 14, minute: 40)),
         
     ]
     
