@@ -17,13 +17,18 @@ struct EventDetailView: View {
                 Text(event.date, format: .dateTime.hour().minute())
             }
             
-            Section(header: Text("Remainders and Other")) {
+            Section(header: Text("Remainders")) {
                 Text(event.location)
                 Text(event.notes)
-                
-                HStack {
-                    ForEach(event.referenceImages, id: \.self) { refImg in
-                        Text(refImg)
+            }
+            
+            Section(header: Text("Images")) {
+                ScrollView(.horizontal) {
+                    LazyHStack(spacing: 50) {
+                        ForEach(event.referenceImages, id: \.self) { image in
+                            Image(image)
+                                .frame(width: 750)
+                        }
                     }
                 }
             }
