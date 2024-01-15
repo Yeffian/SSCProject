@@ -12,12 +12,12 @@ class Event: Identifiable {
     let eventName: String
     let remainder: String
     let location: String
-    let notes: String
+    let notes: [String]
     let referenceImages: [String]
     let date: Date
+    // TODO: Add contacts as callable numbers
     
-    
-    init(eventName: String, remainder: String, location: String, notes: String,
+    init(eventName: String, remainder: String, location: String, notes: [String],
          referenceImages: [String], date: Date = .now) {
         self.eventName = eventName
         self.remainder = remainder
