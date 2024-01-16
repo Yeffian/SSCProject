@@ -29,6 +29,37 @@ struct ContentView: View {
                 }
                 .listStyle(.insetGrouped)
                 .navigationTitle("Good Morning!")
+                
+                TabView {
+                    Text("Sunday")
+                        .tabItem {
+                            Label("Sun", systemImage: "bolt.fill")
+                        }
+                    Text("Monday")
+                        .tabItem {
+                            Label("Mon", systemImage: "bolt.fill")
+                        }
+                    Text("Tuesday")
+                        .tabItem {
+                            Label("Tues", systemImage: "bolt.fill")
+                        }
+                    Text("Wednesday")
+                        .tabItem {
+                            Label("Wed", systemImage: "bolt.fill")
+                        }
+                    Text("Thursday")
+                        .tabItem {
+                            Label("Thurs", systemImage: "bolt.fill")
+                        }
+                    Text("Friday")
+                        .tabItem {
+                            Label("Fri", systemImage: "bolt.fill")
+                        }
+                    Text("Saturday")
+                        .tabItem {
+                            Label("Sat", systemImage: "bolt.fill")
+                        }
+                }
             }
             
             EventDetailView(event: tasks[0])

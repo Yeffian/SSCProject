@@ -9,16 +9,12 @@
 			<dict>
 				<key>location-parameters</key>
 				<dict>
-					<key>EndingColumnNumber</key>
-					<string>8</string>
 					<key>EndingLineNumber</key>
-					<string>4</string>
-					<key>StartingColumnNumber</key>
-					<string>0</string>
+					<string>79</string>
 					<key>StartingLineNumber</key>
-					<string>4</string>
+					<string>79</string>
 					<key>Timestamp</key>
-					<string>726819604.388211</string>
+					<string>727082079.090789</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -34,16 +30,13 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>        </string>
+				<string></string>
 				<key>leading</key>
-				<string>struct ContentView: View {
-    let tasks = [
+				<string>    return date ?? .now
+}
 </string>
 				<key>trailing</key>
-				<string>Event(eventName: "Eat breakfast", remainder: "Make sure to eat breakfast!", location: "Dining Room", notes: ["Don't eat anything to oily", "Get a glass of water before sitting down"], referenceImages: ["dining_table 1", "dining_table 1"], date: CreateDate(hour: 7, minute: 30)),
-        Event(eventName: "Take breakfast meds", remainder: "Take your meds after breakfast", location: "Dining Room", notes: ["Eat the meds marked 'morning'"], referenceImages: ["medicine_box", "dining_table 1"], date: CreateDate(hour: 7, minute: 40)),
-        Event(eventName: "Eat lunch", remainder: "Make sure to eat lunch", location: "Dining Table", notes: ["Get a glass of water before sitting down in case you cough", "Be careful while eating fish"], referenceImages: ["dining_table 1", "dining_table 1"], date: CreateDate(hour: 14, minute: 30)),
-</string>
+				<string></string>
 			</dict>
 			<key>title</key>
 			<string>Error: Cannot use instance member 'CreateDate' within property initializer; property initializers run before 'self' is available</string>
