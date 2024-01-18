@@ -9,6 +9,7 @@ import Foundation
 
 class Event: Identifiable {
     let id: UUID = UUID()
+    let day: DayOfWeek
     let eventName: String
     let remainder: String
     let location: String
@@ -17,8 +18,9 @@ class Event: Identifiable {
     let date: Date
     // TODO: Add contacts as callable numbers
     
-    init(eventName: String, remainder: String, location: String, notes: [String],
+    init(day: DayOfWeek, eventName: String, remainder: String, location: String, notes: [String],
          referenceImages: [String], date: Date = .now) {
+        self.day = day
         self.eventName = eventName
         self.remainder = remainder
         self.location = location
