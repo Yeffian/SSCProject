@@ -7,8 +7,14 @@
 
 import Foundation
 
-enum DayOfWeek {
-    case sunday, monday, tuesday, wednesday, thursday, friday, saturday
+enum DayOfWeek: String, CaseIterable, Hashable, Equatable {
+    case sunday = "Sunday",
+         monday = "Monday",
+         tuesday = "Tuesday",
+         wednesday = "Wednesday",
+         thursday = "Thursday",
+         friday = "Friday",
+         saturday = "Saturday"
 }
 
 func dayFromNumber(number: Int) -> DayOfWeek? {
