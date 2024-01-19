@@ -15,140 +15,32 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            NavigationView {
-                List {
-                    ForEach(filterByDays(targetDay: .sunday, events: tasks)) { task in
-                        NavigationLink {
-                            EventDetailView(event: task)
-                        } label: {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text("\(task.eventName)")
-                                    .font(.title2)
-                                Text(task.date, format: .dateTime.hour().minute())
-                                    .italic()
-                                    .font(.footnote)
-                            }
-                        }
-                    }
-                }
-                .listStyle(.insetGrouped)
-                .navigationTitle("Good Morning!")
-            }
+            ScheduleView(day: .sunday, tasks: tasks)
             .tabItem {
                 Text("Sun")
             }
             
-            NavigationView {
-                List {
-                    ForEach(filterByDays(targetDay: .monday, events: tasks)) { task in
-                        NavigationLink {
-                            EventDetailView(event: task)
-                        } label: {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text("\(task.eventName)")
-                                    .font(.title2)
-                                Text(task.date, format: .dateTime.hour().minute())
-                                    .italic()
-                                    .font(.footnote)
-                            }
-                        }
-                    }
-                }
-                .listStyle(.insetGrouped)
-                .navigationTitle("Good Morning!")
-            }
+            ScheduleView(day: .monday, tasks: tasks)
             .tabItem {
                 Text("Mon")
             }
             
-            NavigationView {
-                List {
-                    ForEach(filterByDays(targetDay: .tuesday, events: tasks)) { task in
-                        NavigationLink {
-                            EventDetailView(event: task)
-                        } label: {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text("\(task.eventName)")
-                                    .font(.title2)
-                                Text(task.date, format: .dateTime.hour().minute())
-                                    .italic()
-                                    .font(.footnote)
-                            }
-                        }
-                    }
-                }
-                .listStyle(.insetGrouped)
-                .navigationTitle("Good Morning!")
-            }
+            ScheduleView(day: .tuesday, tasks: tasks)
             .tabItem {
                 Text("Tues")
             }
             
-            NavigationView {
-                List {
-                    ForEach(filterByDays(targetDay: .wednesday, events: tasks)) { task in
-                        NavigationLink {
-                            EventDetailView(event: task)
-                        } label: {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text("\(task.eventName)")
-                                    .font(.title2)
-                                Text(task.date, format: .dateTime.hour().minute())
-                                    .italic()
-                                    .font(.footnote)
-                            }
-                        }
-                    }
-                }
-                .listStyle(.insetGrouped)
-                .navigationTitle("Good Morning!")
-            }
+            ScheduleView(day: .wednesday, tasks: tasks)
             .tabItem {
                 Text("Wed")
             }
             
-            NavigationView {
-                List {
-                    ForEach(filterByDays(targetDay: .friday, events: tasks)) { task in
-                        NavigationLink {
-                            EventDetailView(event: task)
-                        } label: {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text("\(task.eventName)")
-                                    .font(.title2)
-                                Text(task.date, format: .dateTime.hour().minute())
-                                    .italic()
-                                    .font(.footnote)
-                            }
-                        }
-                    }
-                }
-                .listStyle(.insetGrouped)
-                .navigationTitle("Good Morning!")
-            }
+            ScheduleView(day: .friday, tasks: tasks)
             .tabItem {
                 Text("Fri")
             }
             
-            NavigationView {
-                List {
-                    ForEach(filterByDays(targetDay: .saturday, events: tasks)) { task in
-                        NavigationLink {
-                            EventDetailView(event: task)
-                        } label: {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text("\(task.eventName)")
-                                    .font(.title2)
-                                Text(task.date, format: .dateTime.hour().minute())
-                                    .italic()
-                                    .font(.footnote)
-                            }
-                        }
-                    }
-                }
-                .listStyle(.insetGrouped)
-                .navigationTitle("Good Morning!")
-            }
+            ScheduleView(day: .saturday, tasks: tasks)
             .tabItem {
                 Text("Sat")
             }
@@ -164,10 +56,4 @@ func createDate(hour: Int, minute: Int, seconds: Int = 0) -> Date {
     let calendar = Calendar.current
     let date = calendar.date(from: components)
     return date ?? .now
-}
-
-func filterByDays(targetDay: DayOfWeek, events: [Event]) -> [Event] {
-    return events.filter {
-        $0.day == targetDay
-    }
 }
