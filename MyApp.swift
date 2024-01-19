@@ -1,10 +1,12 @@
 import SwiftUI
+import Foundation
 
 @main
 struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(day: .thursday)
+            /* TODO: Make the TabView highlight on the current day. */
+            ContentView(day: dayFromNumber(number: Calendar.current.component(.year, from: Date())) ?? .monday)
         }
     }
 }

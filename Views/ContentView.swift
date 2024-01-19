@@ -18,6 +18,7 @@ struct ContentView: View {
             ScheduleView(day: .sunday, tasks: tasks)
             .tabItem {
                 Text("Sun")
+                    
             }
             
             ScheduleView(day: .monday, tasks: tasks)
