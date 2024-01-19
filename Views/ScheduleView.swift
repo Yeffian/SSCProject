@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ScheduleView: View {
+    @EnvironmentObject var information: UserInformation
+    @State private var isShowingTaskAddView = false
     var day: DayOfWeek
     var tasks: [Event]
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(filterByDays(targetDay: day, events: tasks)) { task in
+                ForEach(filterByDays(targetDay: day, events: information.tasks)) { task in
                     NavigationLink {
                         EventDetailView(event: task)
                     } label: {
@@ -27,6 +29,22 @@ struct ScheduleView: View {
                         }
                     }
                 }
+                
+                HStack {
+                    Spacer()
+                    Button {
+                        print("Adding a new item to day \(day)")
+                        isShowingTaskAddView.toggle()
+                    } label: {
+                        Text("Add new item..")
+                    }
+                    .sheet(isPresented: $isShowingTaskAddView, content: {
+                        Text("modal to add elements")
+                    })
+                    
+                    Spacer()
+                }
+
             }
             .listStyle(.insetGrouped)
             .navigationTitle("Good Morning!")
