@@ -30,6 +30,9 @@ struct ScheduleView: View {
             }
             .listStyle(.insetGrouped)
             .navigationTitle("Good Morning!")
+            
+            
+            EventDetailView(event: filterByDays(targetDay: day, events: tasks)[0])
         }
     }
 }
