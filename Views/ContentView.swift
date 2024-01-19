@@ -1,47 +1,38 @@
 import SwiftUI
 
 struct ContentView: View {
-    let tasks = [
-        Event(day: .monday, eventName: "Eat breakfast", remainder: "Make sure to eat breakfast!", location: "Dining Room", notes: ["Don't eat anything to oily", "Get a glass of water before sitting down"], referenceImages: ["dining_table 1", "dining_table 1"], date: createDate(hour: 7, minute: 30)),
-        Event(day: .tuesday, eventName: "Take breakfast meds", remainder: "Take your meds after breakfast", location: "Dining Room", notes: ["Eat the meds marked 'morning'"], referenceImages: ["medicine_box", "dining_table 1"], date: createDate(hour: 7, minute: 40)),
-        Event(day: .wednesday, eventName: "Eat lunch", remainder: "Make sure to eat lunch", location: "Dining Table", notes: ["Get a glass of water before sitting down in case you cough", "Be careful while eating fish"], referenceImages: ["dining_table 1", "dining_table 1"], date: createDate(hour: 14, minute: 30)),
-        Event(day: .thursday, eventName: "Take lunch meds", remainder: "Take your meds after lunch", location: "Dining Room", notes: ["Eat the meds marked 'afternoon'"], referenceImages: ["medicine_box", "dining_table 1"], date: createDate(hour: 14, minute: 40)),
-        Event(day: .friday, eventName: "Take lunch meds", remainder: "Take your meds after lunch", location: "Dining Room", notes: ["Eat the meds marked 'afternoon'"], referenceImages: ["medicine_box", "dining_table 1"], date: createDate(hour: 14, minute: 40)),
-        Event(day: .saturday, eventName: "Take lunch meds", remainder: "Take your meds after lunch", location: "Dining Room", notes: ["Eat the meds marked 'afternoon'"], referenceImages: ["medicine_box", "dining_table 1"], date: createDate(hour: 14, minute: 40)),
-        Event(day: .sunday, eventName: "Take lunch meds", remainder: "Take your meds after lunch", location: "Dining Room", notes: ["Eat the meds marked 'afternoon'"], referenceImages: ["medicine_box", "dining_table 1"], date: createDate(hour: 14, minute: 40)),
-    ]
+    @EnvironmentObject var information: UserInformation
     
     @State var day: DayOfWeek
     
     var body: some View {
         TabView {
-            ScheduleView(day: .sunday, tasks: tasks)
+            ScheduleView(day: .sunday, tasks: information.tasks)
             .tabItem {
                 Text("Sun")
-                    
             }
             
-            ScheduleView(day: .monday, tasks: tasks)
+            ScheduleView(day: .monday, tasks: information.tasks)
             .tabItem {
                 Text("Mon")
             }
             
-            ScheduleView(day: .tuesday, tasks: tasks)
+            ScheduleView(day: .tuesday, tasks: information.tasks)
             .tabItem {
                 Text("Tues")
             }
             
-            ScheduleView(day: .wednesday, tasks: tasks)
+            ScheduleView(day: .wednesday, tasks: information.tasks)
             .tabItem {
                 Text("Wed")
             }
             
-            ScheduleView(day: .friday, tasks: tasks)
+            ScheduleView(day: .friday, tasks: information.tasks)
             .tabItem {
                 Text("Fri")
             }
             
-            ScheduleView(day: .saturday, tasks: tasks)
+            ScheduleView(day: .saturday, tasks: information.tasks)
             .tabItem {
                 Text("Sat")
             }

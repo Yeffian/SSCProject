@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+class UserInformation: ObservableObject {
+    let tasks: [Event]
+    
+    init(tasks: [Event]) {
+        self.tasks = tasks
+    }
+}
