@@ -36,6 +36,7 @@ struct ScheduleView: View {
                                 .tag(item)
                         }
                     }
+                    DatePicker("What time do you need to do it?", selection: $eventDate, displayedComponents: .hourAndMinute)
                 }
                 
                 Section(header: Text("Notes and Images")) {
