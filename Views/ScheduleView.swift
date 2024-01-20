@@ -26,9 +26,33 @@ struct ScheduleView: View {
     var modalView: some View {
         NavigationView {
             Form {
-                TextField("What is the name of the event?", text: $eventName)
+                Section(header: Text("Basic Information")) {
+                    TextField("What is the name of the event?", text: $eventName)
+                    TextField("What do you need to do?", text: $remainder)
+                    TextField("Where do you need to go to do this event?", text: $location)
+                    Picker("What day is the event on?", selection: $eventDay) {
+                        ForEach([0, 1, 2, 3, 4, 5, 6], id: \.self) { item in
+                            Text(dayFromNumber(number: item)?.rawValue ?? "nil")
+                                .tag(item)
+                        }
+                    }
+                }
+                
+                Section(header: Text("Notes and Images")) {
+                    TextField("Do you need to leave any notes?", text: $notesBuffer)
+                }
             }
             .navigationTitle("Create a new event..")
+            .toolbar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("Create", action: {
+                        notes = notesBuffer.components(separatedBy: ",")
+                        for note in notes {
+                            print(note)
+                        }
+                    })
+                }
+            }
         }
     }
     
