@@ -17,6 +17,7 @@ class Event: Identifiable {
     let referenceImages: [String]
     let date: Date
     // TODO: Add contacts as callable numbers
+    // TODO: Mark contacts as medical vs personal
     
     init(day: DayOfWeek, eventName: String, remainder: String, location: String, notes: [String],
          referenceImages: [String], date: Date = .now) {
