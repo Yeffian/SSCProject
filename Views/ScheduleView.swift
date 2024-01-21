@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import PhotosUI
 
+@available(iOS 17.0, *)
 struct ScheduleView: View {
     @EnvironmentObject var information: UserInformation
     @State private var isShowingTaskAddView = false
+    @State private var photosPickerItems: [PhotosPickerItem] = []
     var day: DayOfWeek
     var tasks: [Event]
     
@@ -18,44 +21,9 @@ struct ScheduleView: View {
     @State var location: String = "";
     @State var notesBuffer: String = ""
     @State var notes: [String] = []
-    @State var referenceImagesBuffer: String = ""
-    @State var referenceImages: [String] = []
+    @State var referenceImages: [UIImage] = []
     @State var eventDay: Int = -1;
     @State var eventDate: Date = Date.now
-    
-    var modalView: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Basic Information")) {
-                    TextField("What is the name of the event?", text: $eventName)
-                    TextField("What do you need to do?", text: $remainder)
-                    TextField("Where do you need to go to do this event?", text: $location)
-                    Picker("What day is the event on?", selection: $eventDay) {
-                        ForEach([0, 1, 2, 3, 4, 5, 6], id: \.self) { item in
-                            Text(dayFromNumber(number: item)?.rawValue ?? "nil")
-                                .tag(item)
-                        }
-                    }
-                    DatePicker("What time do you need to do it?", selection: $eventDate, displayedComponents: .hourAndMinute)
-                }
-                
-                Section(header: Text("Notes and Images")) {
-                    TextField("Do you need to leave any notes?", text: $notesBuffer)
-                }
-            }
-            .navigationTitle("Create a new event..")
-            .toolbar {
-                ToolbarItemGroup(placement: .topBarTrailing) {
-                    Button("Create", action: {
-                        notes = notesBuffer.components(separatedBy: ",")
-                        for note in notes {
-                            print(note)
-                        }
-                    })
-                }
-            }
-        }
-    }
     
     var body: some View {
         NavigationView {
@@ -85,10 +53,23 @@ struct ScheduleView: View {
                     .sheet(isPresented: $isShowingTaskAddView, content: {
                         modalView
                     })
+                    .onChange(of: isShowingTaskAddView) {
+                        if (isShowingTaskAddView == false) {
+                            eventName = "";
+                            remainder = "";
+                            location = "";
+                            notesBuffer = ""
+                            notes = []
+                            referenceImages = []
+                            eventDay = -1;
+                            eventDate = Date.now
+                            photosPickerItems = []
+                        }
+                    }
                     
                     Spacer()
                 }
-
+                
             }
             .listStyle(.insetGrouped)
             .navigationTitle("Good Morning!")
@@ -97,12 +78,55 @@ struct ScheduleView: View {
             EventDetailView(event: filterByDays(targetDay: day, events: tasks)[0])
         }
     }
+    
+    var modalView: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Basic Information")) {
+                    TextField("What is the name of the event?", text: $eventName)
+                    TextField("What do you need to do?", text: $remainder)
+                    TextField("Where do you need to go to do this event?", text: $location)
+                    Picker("What day is the event on?", selection: $eventDay) {
+                        ForEach([0, 1, 2, 3, 4, 5, 6], id: \.self) { item in
+                            Text(dayFromNumber(number: item)?.rawValue ?? "nil")
+                                .tag(item)
+                        }
+                    }
+                    DatePicker("What time do you need to do it?", selection: $eventDate, displayedComponents: .hourAndMinute)
+                }
+                
+                Section(header: Text("Notes and Images")) {
+                    TextField("Do you need to leave any notes?", text: $notesBuffer)
+                    
+                    PhotosPicker("Pick some images to help you remember!", selection: $photosPickerItems, maxSelectionCount: 10, selectionBehavior: .default, matching: .images)
+                    }
+                }
+                .navigationTitle("Create a new event..")
+                .toolbar {
+                    ToolbarItemGroup(placement: .topBarTrailing) {
+                        Button("Create", action: {
+                            Task {
+                                notes = notesBuffer.components(separatedBy: ",")
+                                for note in notes {
+                                    print(note)
+                                }
+                                
+                                for item in photosPickerItems {
+                                    if let data = try? await item.loadTransferable(type: Data.self) {
+                                        if let image = UIImage(data: data) {
+                                            referenceImages.append(image)
+                                        }
+                                    }
+                                }
+                                
+                            }
+                        })
+                    }
+                }
+            }
+    }
 }
 
 func filterByDays(targetDay: DayOfWeek, events: [Event]) -> [Event] {
     return events.filter { $0.day == targetDay }
-}
-
-#Preview {
-    ScheduleView(day: .friday, tasks: [])
 }
