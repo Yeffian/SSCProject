@@ -22,13 +22,12 @@ struct ScheduleView: View {
     @State var notesBuffer: String = ""
     @State var notes: [String] = []
     @State var referenceImages: [UIImage] = []
-    @State var eventDay: Int = -1;
     @State var eventDate: Date = Date.now
     
     var body: some View {
         NavigationView {
             List {
-                if (information.tasks.count > 0) {
+                if (filterByDays(targetDay: day, events: information.tasks).count > 0) {
                     ForEach(filterByDays(targetDay: day, events: information.tasks)) { task in
                         NavigationLink {
                             EventDetailView(event: task)
@@ -65,7 +64,6 @@ struct ScheduleView: View {
                             notesBuffer = ""
                             notes = []
                             referenceImages = []
-                            eventDay = -1;
                             eventDate = Date.now
                             photosPickerItems = []
                         }
@@ -94,12 +92,7 @@ struct ScheduleView: View {
                     TextField("What is the name of the event?", text: $eventName)
                     TextField("What do you need to do?", text: $remainder)
                     TextField("Where do you need to go to do this event?", text: $location)
-                    Picker("What day is the event on?", selection: $eventDay) {
-                        ForEach([0, 1, 2, 3, 4, 5, 6], id: \.self) { item in
-                            Text(dayFromNumber(number: item)?.rawValue ?? "nil")
-                                .tag(item)
-                        }
-                    }
+
                     DatePicker("What time do you need to do it?", selection: $eventDate, displayedComponents: .hourAndMinute)
                 }
                 
@@ -115,10 +108,7 @@ struct ScheduleView: View {
                         Button("Create", action: {
                             Task {
                                 notes = notesBuffer.components(separatedBy: ",")
-                                for note in notes {
-                                    print(note)
-                                }
-                                
+
                                 for item in photosPickerItems {
                                     if let data = try? await item.loadTransferable(type: Data.self) {
                                         if let image = UIImage(data: data) {
@@ -127,11 +117,12 @@ struct ScheduleView: View {
                                     }
                                 }
                                 
-                                self.information.tasks.append(Event(day: dayFromNumber(number: eventDay) ?? .monday, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate))
-                                
                                 // close the modal
 //                                isShowingTaskAddView.toggle()
                             }
+                            self.information.tasks.append(Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate))
+                            
+                            print("Creating an event now..")
                         })
                     }
                 }
