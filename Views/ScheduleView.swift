@@ -28,18 +28,22 @@ struct ScheduleView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(filterByDays(targetDay: day, events: information.tasks)) { task in
-                    NavigationLink {
-                        EventDetailView(event: task)
-                    } label: {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("\(task.eventName)")
-                                .font(.title2)
-                            Text(task.date, format: .dateTime.hour().minute())
-                                .italic()
-                                .font(.footnote)
+                if (information.tasks.count > 0) {
+                    ForEach(filterByDays(targetDay: day, events: information.tasks)) { task in
+                        NavigationLink {
+                            EventDetailView(event: task)
+                        } label: {
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text("\(task.eventName)")
+                                    .font(.title2)
+                                Text(task.date, format: .dateTime.hour().minute())
+                                    .italic()
+                                    .font(.footnote)
+                            }
                         }
                     }
+                } else {
+                    Text("No events added so far.")
                 }
                 
                 HStack {
@@ -74,8 +78,12 @@ struct ScheduleView: View {
             .listStyle(.insetGrouped)
             .navigationTitle("Good Morning!")
             
+            if (tasks.count > 0) {
+                EventDetailView(event: filterByDays(targetDay: day, events: tasks)[0])
+            } else {
+                Text("No events so far.")
+            }
             
-            EventDetailView(event: filterByDays(targetDay: day, events: tasks)[0])
         }
     }
     
@@ -119,6 +127,7 @@ struct ScheduleView: View {
                                     }
                                 }
                                 
+                                self.information.tasks.append(Event(day: dayFromNumber(number: eventDay) ?? .monday, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate))
                             }
                         })
                     }

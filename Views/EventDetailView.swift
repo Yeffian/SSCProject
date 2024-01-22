@@ -45,15 +45,19 @@ struct EventDetailView: View {
             }
             
             Section(header: Text("Images")) {
-                TabView {
-                    ForEach(event.referenceImages, id: \.self) { referenceImage in
-                        Image(uiImage: referenceImage)
-                            .resizable()
-                            .scaledToFit()
+                if (event.referenceImages.count > 0) {
+                    TabView {
+                        ForEach(event.referenceImages, id: \.self) { referenceImage in
+                            Image(uiImage: referenceImage)
+                                .resizable()
+                                .scaledToFit()
+                        }
                     }
+                    .tabViewStyle(.page(indexDisplayMode: .always))
+                    .frame(height: 520)
+                } else {
+                    Text("No images.")
                 }
-                .tabViewStyle(.page(indexDisplayMode: .always))
-                .frame(height: 520)
             }
         }
         .navigationTitle(event.eventName)

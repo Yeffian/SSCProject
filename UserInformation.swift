@@ -8,7 +8,7 @@
 import Foundation
 
 class UserInformation: ObservableObject {
-    let tasks: [Event]
+    var tasks: [Event]
     
     init(tasks: [Event]) {
         self.tasks = tasks
