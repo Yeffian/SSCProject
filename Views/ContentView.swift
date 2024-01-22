@@ -30,7 +30,7 @@ struct ContentView: View {
             
             ScheduleView(day: .thursday, tasks: information.tasks)
             .tabItem {
-                Text("Thursday")
+                Text("Thurs")
             }
             
             ScheduleView(day: .friday, tasks: information.tasks)
