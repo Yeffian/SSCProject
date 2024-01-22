@@ -128,6 +128,9 @@ struct ScheduleView: View {
                                 }
                                 
                                 self.information.tasks.append(Event(day: dayFromNumber(number: eventDay) ?? .monday, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate))
+                                
+                                // close the modal
+//                                isShowingTaskAddView.toggle()
                             }
                         })
                     }
