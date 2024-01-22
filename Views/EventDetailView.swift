@@ -61,5 +61,5 @@ struct EventDetailView: View {
 }
 
 #Preview {
-    EventDetailView(event: Event(day: .thursday, eventName: "Test event", remainder: "This is a test event", location: "Adit's room", notes: ["This is a note"], referenceImages: ["refimg1", "refimg2"]))
+    EventDetailView(event: Event(day: .thursday, eventName: "Test event", remainder: "This is a test event", location: "Adit's room", notes: ["This is a note"]))
 }
