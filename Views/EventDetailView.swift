@@ -47,7 +47,7 @@ struct EventDetailView: View {
             Section(header: Text("Images")) {
                 TabView {
                     ForEach(event.referenceImages, id: \.self) { referenceImage in
-                        Image(referenceImage)
+                        Image(uiImage: referenceImage)
                             .resizable()
                             .scaledToFit()
                     }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PhotosUI
 
 class Event: Identifiable {
     let id: UUID = UUID()
@@ -14,13 +15,13 @@ class Event: Identifiable {
     let remainder: String
     let location: String
     let notes: [String]
-    let referenceImages: [String]
+    let referenceImages: [UIImage]
     let date: Date
     // TODO: Add contacts as callable numbers
     // TODO: Mark contacts as medical vs personal
     
     init(day: DayOfWeek, eventName: String, remainder: String, location: String, notes: [String],
-         referenceImages: [String], date: Date = .now) {
+         referenceImages: [UIImage] = [], date: Date = .now) {
         self.day = day
         self.eventName = eventName
         self.remainder = remainder
