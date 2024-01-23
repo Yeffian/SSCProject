@@ -121,7 +121,7 @@ struct ScheduleView: View {
                                 self.information.tasks.append(Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate))
                                 
                                 // close the modal
-//                                isShowingTaskAddView.toggle()
+                                isShowingTaskAddView.toggle()
                             }
                             
                             
