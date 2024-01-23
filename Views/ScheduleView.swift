@@ -29,6 +29,7 @@ struct ScheduleView: View {
             List {
                 if (filterByDays(targetDay: day, events: information.tasks).count > 0) {
                     ForEach(filterByDays(targetDay: day, events: information.tasks)) { task in
+                        let _ = print(task.referenceImages.count)
                         NavigationLink {
                             EventDetailView(event: task)
                         } label: {
@@ -117,11 +118,12 @@ struct ScheduleView: View {
                                     }
                                 }
                                 
+                                self.information.tasks.append(Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate))
+                                
                                 // close the modal
 //                                isShowingTaskAddView.toggle()
                             }
                             
-                            self.information.tasks.append(Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate))
                             
                             print("Creating an event now..")
                         })
