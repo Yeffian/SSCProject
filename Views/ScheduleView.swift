@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import UserNotifications
 
 @available(iOS 17.0, *)
 struct ScheduleView: View {
@@ -44,6 +45,7 @@ struct ScheduleView: View {
                     }
                 } else {
                     Text("No events added so far.")
+                        .font(.callout)
                 }
                 
                 HStack {
