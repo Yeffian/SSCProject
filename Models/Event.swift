@@ -9,14 +9,14 @@ import Foundation
 import PhotosUI
 
 class Event: Identifiable, Codable {
-    let id: UUID = UUID()
-    let day: DayOfWeek
-    let eventName: String
-    let remainder: String
-    let location: String
-    let notes: [String]
-//    let referenceImages: [UIImage]
-    let date: Date
+    var id: UUID = UUID()
+    var day: DayOfWeek
+    var eventName: String
+    var remainder: String
+    var location: String
+    var notes: [String]
+    var referenceImages: [UIImage] = []
+    var date: Date
     // TODO: Add contacts as callable numbers
     // TODO: Mark contacts as medical vs personal
     
@@ -31,17 +31,6 @@ class Event: Identifiable, Codable {
         case date
     }
     
-    init(day: DayOfWeek, eventName: String, remainder: String, location: String, notes: [String],
-         referenceImages: [UIImage] = [], date: Date = .now) {
-        self.day = day
-        self.eventName = eventName
-        self.remainder = remainder
-        self.location = location
-        self.notes = notes
-//        self.referenceImages = referenceImages
-        self.date = date
-    }
-    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: EventCodingKeys.self)
         day = try container.decode(DayOfWeek.self, forKey: .day)
@@ -49,8 +38,28 @@ class Event: Identifiable, Codable {
         remainder = try container.decode(String.self, forKey: .remainder)
         location = try container.decode(String.self, forKey: .location)
         notes = try container.decode([String].self, forKey: .notes)
-        // reference images later
         date = try container.decode(Date.self, forKey: .date)
+        
+        for referenceImage in try container.decode([String].self, forKey: .referenceImages) {
+            self.referenceImages.append(referenceImage.imageFromBase64!)
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: EventCodingKeys.self)
+        try container.encode(day, forKey: .day)
+        try container.encode(eventName, forKey: .eventName)
+        try container.encode(remainder, forKey: .remainder)
+        try container.encode(location, forKey: .location)
+        try container.encode(notes, forKey: .notes)
+        try container.encode(date, forKey: .date)
+        
+        var images: [String] = []
+        for referenceImage in referenceImages {
+            images.append(referenceImage.base64!)
+        }
+        
+        try container.encode(images, forKey: .remainder)
     }
     
 }
