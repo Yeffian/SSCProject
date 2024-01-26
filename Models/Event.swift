@@ -8,17 +8,28 @@
 import Foundation
 import PhotosUI
 
-class Event: Identifiable {
+class Event: Identifiable, Codable {
     let id: UUID = UUID()
     let day: DayOfWeek
     let eventName: String
     let remainder: String
     let location: String
     let notes: [String]
-    let referenceImages: [UIImage]
+//    let referenceImages: [UIImage]
     let date: Date
     // TODO: Add contacts as callable numbers
     // TODO: Mark contacts as medical vs personal
+    
+    private enum EventCodingKeys: String, CodingKey {
+        case id
+        case day
+        case eventName
+        case remainder
+        case location
+        case notes
+        case referenceImages
+        case date
+    }
     
     init(day: DayOfWeek, eventName: String, remainder: String, location: String, notes: [String],
          referenceImages: [UIImage] = [], date: Date = .now) {
@@ -27,7 +38,19 @@ class Event: Identifiable {
         self.remainder = remainder
         self.location = location
         self.notes = notes
-        self.referenceImages = referenceImages
+//        self.referenceImages = referenceImages
         self.date = date
     }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: EventCodingKeys.self)
+        day = try container.decode(DayOfWeek.self, forKey: .day)
+        eventName = try container.decode(String.self, forKey: .eventName)
+        remainder = try container.decode(String.self, forKey: .remainder)
+        location = try container.decode(String.self, forKey: .location)
+        notes = try container.decode([String].self, forKey: .notes)
+        // reference images later
+        date = try container.decode(Date.self, forKey: .date)
+    }
+    
 }
