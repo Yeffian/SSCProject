@@ -27,6 +27,21 @@ struct ScheduleView: View {
     @State var referenceImages: [Data?] = []
     @State var eventDate: Date = Date.now
     
+    func addEvent() async {
+        notes = notesBuffer.components(separatedBy: ",")
+
+        for item in photosPickerItems {
+            if let data = try? await item.loadTransferable(type: Data.self) {
+                referenceImages.append(data)
+            }
+        }
+        
+        let event = Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate)
+        ctx.insert(event)
+        
+        try? ctx.save()
+    }
+    
     var body: some View {
         NavigationView {
             List {
@@ -112,18 +127,8 @@ struct ScheduleView: View {
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         Button("Create", action: {
                             Task {
-                                notes = notesBuffer.components(separatedBy: ",")
-
-                                for item in photosPickerItems {
-                                    if let data = try? await item.loadTransferable(type: Data.self) {
-                                        referenceImages.append(data)
-                                    }
-                                }
-                                
-                                let event = Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate)
-                                ctx.insert(event)
-                                try ctx.save()
-                                
+                                await addEvent()
+                                    
                                 // close the modal
                                 isShowingTaskAddView.toggle()
                             }
