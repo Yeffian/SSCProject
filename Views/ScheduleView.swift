@@ -42,6 +42,17 @@ struct ScheduleView: View {
         try? ctx.save()
     }
     
+    func clearEventData() {
+        eventName = "";
+        remainder = "";
+        location = "";
+        notesBuffer = ""
+        notes = []
+        referenceImages = []
+        eventDate = Date.now
+        photosPickerItems = []
+    }
+    
     var body: some View {
         NavigationView {
             List {
@@ -77,14 +88,7 @@ struct ScheduleView: View {
                     })
                     .onChange(of: isShowingTaskAddView) {
                         if (isShowingTaskAddView == false) {
-                            eventName = "";
-                            remainder = "";
-                            location = "";
-                            notesBuffer = ""
-                            notes = []
-                            referenceImages = []
-                            eventDate = Date.now
-                            photosPickerItems = []
+                            clearEventData()
                         }
                     }
                     
