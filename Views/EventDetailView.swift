@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 17, *)
 struct EventDetailView: View {
     @State var event: Event
     
@@ -35,7 +36,7 @@ struct EventDetailView: View {
                 }
                 
                 
-                // TODO: Add contacts and contact view
+                 // TODO: Add contacts and contact view
             }
             
             Section(header: Text("Notes")) {
@@ -48,7 +49,7 @@ struct EventDetailView: View {
                 if (event.referenceImages.count > 0) {
                     TabView {
                         ForEach(event.referenceImages, id: \.self) { referenceImage in
-                            Image(uiImage: referenceImage)
+                            Image(uiImage: UIImage(data: referenceImage!)!)
                                 .resizable()
                                 .scaledToFit()
                         }
@@ -62,8 +63,4 @@ struct EventDetailView: View {
         }
         .navigationTitle(event.eventName)
     }
-}
-
-#Preview {
-    EventDetailView(event: Event(day: .thursday, eventName: "Test event", remainder: "This is a test event", location: "Adit's room", notes: ["This is a note"]))
 }

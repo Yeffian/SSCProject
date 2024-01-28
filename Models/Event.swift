@@ -7,7 +7,10 @@
 
 import Foundation
 import PhotosUI
+import SwiftData
 
+@available(iOS 17, *)
+@Model
 class Event: Identifiable {
     let id: UUID = UUID()
     let day: DayOfWeek
@@ -15,13 +18,13 @@ class Event: Identifiable {
     let remainder: String
     let location: String
     let notes: [String]
-    let referenceImages: [UIImage]
+    let referenceImages: [Data?]
     let date: Date
     // TODO: Add contacts as callable numbers
     // TODO: Mark contacts as medical vs personal
     
     init(day: DayOfWeek, eventName: String, remainder: String, location: String, notes: [String],
-         referenceImages: [UIImage] = [], date: Date = .now) {
+         referenceImages: [Data?] = [], date: Date = .now) {
         self.day = day
         self.eventName = eventName
         self.remainder = remainder

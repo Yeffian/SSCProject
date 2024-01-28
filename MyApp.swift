@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 import Foundation
 
 @available(iOS 17.0, *)
@@ -8,7 +9,7 @@ struct MyApp: App {
         WindowGroup {
             /* TODO: Make the TabView highlight on the current day. */
             ContentView(day: dayFromNumber(number: Calendar.current.component(.year, from: Date())) ?? .monday)
-                .environmentObject(UserInformation(tasks: []))
         }
+        .modelContainer(for: [Event.self])
     }
 }

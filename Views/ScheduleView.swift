@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 import PhotosUI
 import UserNotifications
 
 @available(iOS 17.0, *)
 struct ScheduleView: View {
-    @EnvironmentObject var information: UserInformation
+    @Environment(\.modelContext) private var ctx
+    
     @State private var isShowingTaskAddView = false
     @State private var photosPickerItems: [PhotosPickerItem] = []
     var day: DayOfWeek
@@ -22,15 +24,14 @@ struct ScheduleView: View {
     @State var location: String = "";
     @State var notesBuffer: String = ""
     @State var notes: [String] = []
-    @State var referenceImages: [UIImage] = []
+    @State var referenceImages: [Data?] = []
     @State var eventDate: Date = Date.now
     
     var body: some View {
         NavigationView {
             List {
-                if (filterByDays(targetDay: day, events: information.tasks).count > 0) {
-                    ForEach(filterByDays(targetDay: day, events: information.tasks)) { task in
-                        let _ = print(task.referenceImages.count)
+                if (filterByDays(targetDay: day, events: tasks).count > 0) {
+                    ForEach(filterByDays(targetDay: day, events: tasks)) { task in
                         NavigationLink {
                             EventDetailView(event: task)
                         } label: {
@@ -79,11 +80,13 @@ struct ScheduleView: View {
             .listStyle(.insetGrouped)
             .navigationTitle("Good Morning!")
             
-            if (tasks.count > 0) {
-                EventDetailView(event: filterByDays(targetDay: day, events: tasks)[0])
-            } else {
-                Text("No events so far.")
-            }
+//            if (tasks.count > 0) {
+//                EventDetailView(event: filterByDays(targetDay: day, events: tasks)[0])
+//            } else {
+//                Text("No events so far.")
+//            }
+            
+            Text("Pick a task from the sidebar to get started!")
             
         }
     }
@@ -100,9 +103,8 @@ struct ScheduleView: View {
                 }
                 
                 Section(header: Text("Notes and Images")) {
-                    TextField("Do you need to leave any notes?", text: $notesBuffer)
-                    
-                    PhotosPicker("Pick some images to help you remember!", selection: $photosPickerItems, maxSelectionCount: 10, selectionBehavior: .default, matching: .images)
+                        TextField("Do you need to leave any notes?", text: $notesBuffer)
+                        PhotosPicker("Pick some images to help you remember!", selection: $photosPickerItems, maxSelectionCount: 10, selectionBehavior: .default, matching: .images)
                     }
                 }
                 .navigationTitle("Create a new event..")
@@ -114,13 +116,13 @@ struct ScheduleView: View {
 
                                 for item in photosPickerItems {
                                     if let data = try? await item.loadTransferable(type: Data.self) {
-                                        if let image = UIImage(data: data) {
-                                            referenceImages.append(image)
-                                        }
+                                        referenceImages.append(data)
                                     }
                                 }
                                 
-                                self.information.tasks.append(Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate))
+                                let event = Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate)
+                                ctx.insert(event)
+                                try ctx.save()
                                 
                                 // close the modal
                                 isShowingTaskAddView.toggle()
@@ -135,6 +137,7 @@ struct ScheduleView: View {
     }
 }
 
+@available(iOS 17, *)
 func filterByDays(targetDay: DayOfWeek, events: [Event]) -> [Event] {
     return events.filter { $0.day == targetDay }
 }
