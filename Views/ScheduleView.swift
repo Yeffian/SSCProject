@@ -53,6 +53,13 @@ struct ScheduleView: View {
         photosPickerItems = []
     }
     
+    func deleteTask(at offsets: IndexSet) {
+        for index in offsets {
+            let task = tasks[index]
+            ctx.delete(task)
+        }
+    }
+    
     var body: some View {
         NavigationView {
             List {
@@ -70,6 +77,7 @@ struct ScheduleView: View {
                             }
                         }
                     }
+                    .onDelete(perform: deleteTask)
                 } else {
                     Text("No events added so far.")
                         .font(.callout)
