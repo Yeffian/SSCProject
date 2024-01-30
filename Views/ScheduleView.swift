@@ -15,6 +15,7 @@ struct ScheduleView: View {
     @Environment(\.modelContext) private var ctx
     
     @State private var isShowingTaskAddView = false
+    @State private var showIncompleteFieldsAlert: Bool = false
     @State private var photosPickerItems: [PhotosPickerItem] = []
     var day: DayOfWeek
     var tasks: [Event]
@@ -26,6 +27,14 @@ struct ScheduleView: View {
     @State var notes: [String] = []
     @State var referenceImages: [Data?] = []
     @State var eventDate: Date = Date.now
+    
+    func canCreateEvent() -> Bool {
+        if eventName == "" || remainder == "" || location == "" {
+            return false
+        }
+        
+        return true
+    }
     
     func addEvent() async {
         notes = notesBuffer.components(separatedBy: ",")
@@ -139,12 +148,14 @@ struct ScheduleView: View {
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         Button("Create", action: {
                             Task {
-                                await addEvent()
-                                    
-                                // close the modal
-                                isShowingTaskAddView.toggle()
+                                if canCreateEvent() {
+                                    await addEvent()
+                                    // close the modal
+                                    isShowingTaskAddView.toggle()
+                                } else {
+                                    showIncompleteFieldsAlert.toggle()
+                                }
                             }
-                            
                             
                             print("Creating an event now..")
                         })
@@ -154,6 +165,9 @@ struct ScheduleView: View {
                             isShowingTaskAddView.toggle()
                         })
                     }
+                }
+                .alert("Please fill in all the mandatory fields.", isPresented: $showIncompleteFieldsAlert) {
+                    Button("OK", role: .cancel) { }
                 }
             }
     }
