@@ -148,6 +148,11 @@ struct ScheduleView: View {
                             
                             print("Creating an event now..")
                         })
+                        
+                        Button("Cancel", action: {
+                            clearEventData()
+                            isShowingTaskAddView.toggle()
+                        })
                     }
                 }
             }
