@@ -38,7 +38,7 @@ struct ScheduleView: View {
     
     func addEvent() async {
         notes = notesBuffer.components(separatedBy: ",")
-
+        
         for item in photosPickerItems {
             if let data = try? await item.loadTransferable(type: Data.self) {
                 referenceImages.append(data)
