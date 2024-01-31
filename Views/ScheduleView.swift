@@ -10,7 +10,6 @@ import SwiftData
 import PhotosUI
 import UserNotifications
 
-@available(iOS 17.0, *)
 struct ScheduleView: View {
     @Environment(\.modelContext) private var ctx
     
@@ -173,7 +172,6 @@ struct ScheduleView: View {
     }
 }
 
-@available(iOS 17, *)
 func filterByDays(targetDay: DayOfWeek, events: [Event]) -> [Event] {
     return events.filter { $0.day == targetDay }
 }

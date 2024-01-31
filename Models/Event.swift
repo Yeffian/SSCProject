@@ -9,7 +9,6 @@ import Foundation
 import PhotosUI
 import SwiftData
 
-@available(iOS 17, *)
 @Model
 class Event: Identifiable {
     let id: UUID = UUID()

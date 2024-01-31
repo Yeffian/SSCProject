@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 17, *)
 struct EventDetailView: View {
     @State var event: Event
     
