@@ -115,13 +115,11 @@ struct ScheduleView: View {
             .listStyle(.insetGrouped)
             .navigationTitle("Good Morning!")
             
-//            if (tasks.count > 0) {
-//                EventDetailView(event: filterByDays(targetDay: day, events: tasks)[0])
-//            } else {
-//                Text("No events so far.")
-//            }
-            
-            Text("Pick a task from the sidebar to get started!")
+            if (!filterByDays(targetDay: day, events: tasks).isEmpty) {
+                EventDetailView(event: filterByDays(targetDay: day, events: tasks)[0])
+            } else {
+                Text("Create a task from the sidebar to get started!")
+            }
             
         }
     }
