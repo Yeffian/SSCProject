@@ -55,5 +55,4 @@ func numberFromDay(day: DayOfWeek) -> Int {
     case .saturday:
         return 6
     }
-
 }

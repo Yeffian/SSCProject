@@ -11,6 +11,7 @@ import PhotosUI
 import UserNotifications
 
 struct ScheduleView: View {
+    @EnvironmentObject var notifManager: NotificationManager
     @Environment(\.modelContext) private var ctx
     
     @State private var isShowingTaskAddView = false
@@ -47,6 +48,16 @@ struct ScheduleView: View {
         let event = Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate)
         ctx.insert(event)
         
+        let dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: event.date)
+//        print("Adding an event now")
+//        print(dateComponents.day)
+        let notification = Notification(identifier: UUID().uuidString,
+                                        title: event.eventName,
+                                        body: event.remainder,
+                                        dateComponents: dateComponents,
+                                        repeats: true)
+        
+        await notifManager.schedule(notification: notification)
         try? ctx.save()
     }
     
@@ -120,7 +131,6 @@ struct ScheduleView: View {
             } else {
                 Text("Create a task from the sidebar to get started!")
             }
-            
         }
     }
     
@@ -153,8 +163,6 @@ struct ScheduleView: View {
                                     showIncompleteFieldsAlert.toggle()
                                 }
                             }
-                            
-                            print("Creating an event now..")
                         })
                         
                         Button("Cancel", action: {
