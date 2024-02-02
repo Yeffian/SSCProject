@@ -77,6 +77,8 @@ struct ScheduleView: View {
             let task = tasks[index]
             ctx.delete(task)
         }
+        
+        try? ctx.save()
     }
     
     var body: some View {
