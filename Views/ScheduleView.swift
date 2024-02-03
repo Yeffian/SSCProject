@@ -49,8 +49,6 @@ struct ScheduleView: View {
         ctx.insert(event)
         
         let dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: event.date)
-//        print("Adding an event now")
-//        print(dateComponents.day)
         let notification = Notification(identifier: UUID().uuidString,
                                         title: event.eventName,
                                         body: event.remainder,
@@ -126,7 +124,7 @@ struct ScheduleView: View {
                 
             }
             .listStyle(.insetGrouped)
-            .navigationTitle("Good Morning!")
+            .navigationTitle("Good \(Date().localizedTimeString()!)!")
             
             if (!filterByDays(targetDay: day, events: tasks).isEmpty) {
                 EventDetailView(event: filterByDays(targetDay: day, events: tasks)[0])
