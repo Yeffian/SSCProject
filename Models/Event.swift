@@ -32,4 +32,22 @@ class Event: Identifiable {
         self.referenceImages = referenceImages
         self.date = date
     }
+    
+    func getEventStatus() -> String {
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        let currentMinute = Calendar.current.component(.minute, from: Date())
+        let currentDay = Date().dayNumberOfWeek()
+        
+        let day = self.date
+        let hour = Calendar.current.component(.hour, from: self.date)
+        let minute = Calendar.current.component(.minute, from: self.date)
+        
+        if (currentHour >= hour && currentMinute >= minute && currentDay == day.dayNumberOfWeek()) {
+            return "Done"
+        } else {
+            return "Upcoming"
+        }
+    }
 }
+
+

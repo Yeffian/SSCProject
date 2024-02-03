@@ -34,6 +34,12 @@ struct EventDetailView: View {
                         .fontWeight(.bold)
                 }
                 
+                HStack {
+                    Text("Status")
+                    Spacer()
+                    Text(event.getEventStatus())
+                }
+                
                 
                  // TODO: Add contacts and contact view
             }
@@ -65,3 +71,5 @@ struct EventDetailView: View {
         .navigationTitle(event.eventName)
     }
 }
+
+
