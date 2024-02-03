@@ -44,7 +44,7 @@ struct EventDetailView: View {
                  // TODO: Add contacts and contact view
             }
             
-            if !event.notes.isEmpty && event.notes[0] == " " {
+            if !event.notes.isEmpty {
                 Section(header: Text("Notes")) {
                     ForEach(event.notes, id: \.self) { note in
                         Text(note)

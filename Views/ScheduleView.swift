@@ -87,13 +87,17 @@ struct ScheduleView: View {
                         NavigationLink {
                             EventDetailView(event: task)
                         } label: {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text("\(task.eventName)")
-                                    .font(.title2)
-                                Text(task.date, format: .dateTime.hour().minute())
-                                    .italic()
-                                    .font(.footnote)
+                            HStack {
+                                Text(task.getEventStatus() == "Upcoming" ? "⏱️" : "✅")
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text("\(task.eventName)")
+                                        .font(.title2)
+                                    Text(task.date, format: .dateTime.hour().minute())
+                                        .italic()
+                                        .font(.footnote)
+                                }
                             }
+                            
                         }
                     }
                     .onDelete(perform: deleteTask)
