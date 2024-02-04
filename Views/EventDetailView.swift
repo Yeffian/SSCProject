@@ -10,6 +10,12 @@ import SwiftUI
 struct EventDetailView: View {
     @State var event: Event
     
+    @State private var isShowingCareeSettingsView = false
+    @EnvironmentObject private var careeInformation: CareeInformation
+    
+    @State var careeName = ""
+
+    
     var body: some View {
         List {
             Section(header: Text("Information")) {
@@ -69,6 +75,35 @@ struct EventDetailView: View {
             }
         }
         .navigationTitle(event.eventName)
+        .toolbar {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Button("Settings", action: {
+                    isShowingCareeSettingsView.toggle()
+                })
+            }
+        }
+        .sheet(isPresented: $isShowingCareeSettingsView, content: {
+            NavigationView {
+                Form {
+                    TextField("What is the name of the caree?", text: $careeName)
+                }
+                .navigationTitle("Caree Information")
+                .toolbar {
+                    ToolbarItemGroup(placement: .topBarTrailing) {
+                        Button("Update", action: {
+                            Task {
+                                careeInformation.careeName = careeName
+                            }
+                        })
+                        
+                        Button("Cancel", action: {
+                            isShowingCareeSettingsView.toggle()
+                        })
+                    }
+                }
+            }
+        })
+
     }
 }
 

@@ -12,10 +12,14 @@ import UserNotifications
 
 struct ScheduleView: View {
     @EnvironmentObject var notifManager: NotificationManager
+    @EnvironmentObject var careeInformation: CareeInformation
+    
     @Environment(\.modelContext) private var ctx
     
     @State private var isShowingTaskAddView = false
-    @State private var showIncompleteFieldsAlert: Bool = false
+    @State private var isShowingCareeSettingsView = false
+    
+    @State private var showIncompleteFieldsAlert = false
     @State private var photosPickerItems: [PhotosPickerItem] = []
     var day: DayOfWeek
     var tasks: [Event]
@@ -27,6 +31,16 @@ struct ScheduleView: View {
     @State var notes: [String] = []
     @State var referenceImages: [Data?] = []
     @State var eventDate: Date = Date.now
+    
+    @State var careeName: String = ""
+    
+    var Greeting: String {
+        if careeInformation.careeName == nil {
+            return "Good \(Date().localizedTimeString()!)!"
+        } else {
+            return "Good \(Date().localizedTimeString()!), \(careeInformation.careeName!)!"
+        }
+    }
     
     func canCreateEvent() -> Bool {
         if eventName == "" || remainder == "" || location == "" {
@@ -115,7 +129,7 @@ struct ScheduleView: View {
                         Text("Add new item..")
                     }
                     .sheet(isPresented: $isShowingTaskAddView, content: {
-                        modalView
+                        eventCreationModal
                     })
                     .onChange(of: isShowingTaskAddView) {
                         if (isShowingTaskAddView == false) {
@@ -128,7 +142,35 @@ struct ScheduleView: View {
                 
             }
             .listStyle(.insetGrouped)
-            .navigationTitle("Good \(Date().localizedTimeString()!)!")
+            .navigationTitle(Greeting)
+            .toolbar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("Settings", action: {
+                        isShowingCareeSettingsView.toggle()
+                    })
+                }
+            }
+            .sheet(isPresented: $isShowingCareeSettingsView, content: {
+                NavigationView {
+                    Form {
+                        TextField("What is the name of the caree?", text: $careeName)
+                    }
+                    .navigationTitle("Caree Information")
+                    .toolbar {
+                        ToolbarItemGroup(placement: .topBarTrailing) {
+                            Button("Update", action: {
+                                Task {
+                                    careeInformation.careeName = careeName
+                                }
+                            })
+                            
+                            Button("Cancel", action: {
+                                isShowingCareeSettingsView.toggle()
+                            })
+                        }
+                    }
+                }
+            })
             
             if (!filterByDays(targetDay: day, events: tasks).isEmpty) {
                 EventDetailView(event: filterByDays(targetDay: day, events: tasks)[0])
@@ -138,7 +180,8 @@ struct ScheduleView: View {
         }
     }
     
-    var modalView: some View {
+    
+    var eventCreationModal: some View {
         NavigationView {
             Form {
                 Section(header: Text("Basic Information")) {

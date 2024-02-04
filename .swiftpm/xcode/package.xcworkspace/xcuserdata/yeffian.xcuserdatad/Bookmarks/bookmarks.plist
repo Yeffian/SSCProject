@@ -12,13 +12,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>89</string>
+					<string>79</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>88</string>
+					<string>78</string>
 					<key>Timestamp</key>
-					<string>728561882.8553391</string>
+					<string>728728054.4934469</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -37,11 +37,14 @@
 				<string>}
 </string>
 				<key>leading</key>
-				<string>    let date = calendar.date(from: components)
-    return date ?? .now
+				<string>//        }
+    }
 </string>
 				<key>trailing</key>
-				<string></string>
+				<string>
+func createDate(hour: Int, minute: Int, seconds: Int = 0) -&gt; Date {
+    var components = DateComponents()
+</string>
 			</dict>
 			<key>title</key>
 			<string>Error: Cannot use instance member 'CreateDate' within property initializer; property initializers run before 'self' is available</string>
