@@ -136,7 +136,7 @@ struct ScheduleView: View {
                             clearEventData()
                         }
                     }
-                    
+            
                     Spacer()
                 }
                 
@@ -161,6 +161,8 @@ struct ScheduleView: View {
                             Button("Update", action: {
                                 Task {
                                     careeInformation.careeName = careeName
+                                    UserDefaults.standard.set(careeInformation.careeName, forKey: "CareeInformation_Name")
+                                    isShowingCareeSettingsView.toggle()
                                 }
                             })
                             
@@ -171,6 +173,9 @@ struct ScheduleView: View {
                     }
                 }
             })
+            .task {
+                careeInformation.careeName = UserDefaults.standard.string(forKey: "CareeInformation_Name")
+            }
             
             if (!filterByDays(targetDay: day, events: tasks).isEmpty) {
                 EventDetailView(event: filterByDays(targetDay: day, events: tasks)[0])

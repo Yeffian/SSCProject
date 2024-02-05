@@ -93,6 +93,8 @@ struct EventDetailView: View {
                         Button("Update", action: {
                             Task {
                                 careeInformation.careeName = careeName
+                                UserDefaults.standard.set(careeInformation.careeName, forKey: "CareeInformation_Name")
+                                isShowingCareeSettingsView.toggle()
                             }
                         })
                         
@@ -103,7 +105,6 @@ struct EventDetailView: View {
                 }
             }
         })
-
     }
 }
 

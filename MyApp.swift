@@ -3,7 +3,7 @@ import SwiftData
 import Foundation
 
 @main
-struct MyApp: App {
+struct MyApp: App {    
     @StateObject var notifManager = NotificationManager()
     @StateObject var careeInformation = CareeInformation()
     
