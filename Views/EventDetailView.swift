@@ -97,7 +97,9 @@ struct EventDetailView: View {
                                 isShowingCareeSettingsView.toggle()
                             }
                         })
-                        
+                    }
+                    
+                    ToolbarItemGroup(placement: .cancellationAction) {
                         Button("Cancel", action: {
                             isShowingCareeSettingsView.toggle()
                         })

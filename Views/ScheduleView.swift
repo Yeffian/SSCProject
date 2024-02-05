@@ -165,7 +165,9 @@ struct ScheduleView: View {
                                     isShowingCareeSettingsView.toggle()
                                 }
                             })
-                            
+                        }
+                        
+                        ToolbarItemGroup(placement: .cancellationAction) {
                             Button("Cancel", action: {
                                 isShowingCareeSettingsView.toggle()
                             })
@@ -216,7 +218,9 @@ struct ScheduleView: View {
                                 }
                             }
                         })
-                        
+                    }
+                    
+                    ToolbarItemGroup(placement: .cancellationAction) {
                         Button("Cancel", action: {
                             clearEventData()
                             isShowingTaskAddView.toggle()
