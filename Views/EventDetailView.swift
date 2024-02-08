@@ -11,7 +11,7 @@ struct EventDetailView: View {
     @State var event: Event
     
     @State private var isShowingCareeSettingsView = false
-    @EnvironmentObject private var careeInformation: CareeInformation
+    @EnvironmentObject private var careeInformation: ApplicationSettings
     
     @State var careeName = ""
 

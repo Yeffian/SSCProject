@@ -12,7 +12,7 @@ import UserNotifications
 
 struct ScheduleView: View {
     @EnvironmentObject var notifManager: NotificationManager
-    @EnvironmentObject var careeInformation: CareeInformation
+    @EnvironmentObject var careeInformation: ApplicationSettings
     
     @Environment(\.modelContext) private var ctx
     

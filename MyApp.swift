@@ -5,7 +5,7 @@ import Foundation
 @main
 struct MyApp: App {    
     @StateObject var notifManager = NotificationManager()
-    @StateObject var careeInformation = CareeInformation()
+    @StateObject var careeInformation = ApplicationSettings()
     
     var body: some Scene {
         WindowGroup {

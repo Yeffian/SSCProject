@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CareeInformation : ObservableObject {
+class ApplicationSettings : ObservableObject {
     @Published var careeName: String?
     
     init(careeName: String? = nil) {
