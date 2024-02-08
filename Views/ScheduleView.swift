@@ -1,6 +1,6 @@
 //
 //  ScheduleView.swift
-//  
+//
 //
 //  Created by Adit Chakraborty on 19/01/2024.
 //
@@ -36,9 +36,9 @@ struct ScheduleView: View {
     
     var Greeting: String {
         if careeInformation.careeName == nil {
-            return "Good \(Date().localizedTimeString()!)!"
+            return "Good \(Date().localizedTimeString())!"
         } else {
-            return "Good \(Date().localizedTimeString()!), \(careeInformation.careeName!)!"
+            return "Good \(Date().localizedTimeString()), \(careeInformation.careeName!)!"
         }
     }
     

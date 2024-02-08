@@ -1,7 +1,6 @@
 import SwiftUI
 import SwiftData
 
-@available(iOS 17.0, *)
 struct ContentView: View {
     @EnvironmentObject var notifManager: NotificationManager
     @Environment(\.modelContext) private var ctx
@@ -54,27 +53,11 @@ struct ContentView: View {
                 Text("Sat")
             }
             .tag(6)
-            
-//            Button("Schedule Notif") {
-//                Task {
-//                    let testNotification = Notification(identifier: UUID().uuidString,
-//                                                        title: "This is a test",
-//                                                        body: "Lorem ipsum sit dormor",
-//                                                        timeInterval: 5,
-//                                                        repeats: false)
-//                    
-//                    await notifManager.schedule(notification: testNotification)
-//                }
-//            }
         }
         .task {
+            // Request authorization to send notifications
             try? await notifManager.requestAuthorization()
         }
-//        .onChange(of: scenePhase) { newPhase in
-//            if newPhase == .active {
-//
-//            }
-//        }
     }
 }
 
