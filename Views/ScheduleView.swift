@@ -127,7 +127,7 @@ struct ScheduleView: View {
                         print("Adding a new item to day \(day)")
                         isShowingTaskAddView.toggle()
                     } label: {
-                        Text("Add new item..")
+                        Text("Add a new item")
                     }
                     .sheet(isPresented: $isShowingTaskAddView, content: {
                         eventCreationModal
@@ -225,7 +225,7 @@ struct ScheduleView: View {
                 .navigationTitle("Create a new event..")
                 .toolbar {
                     ToolbarItemGroup(placement: .topBarTrailing) {
-                        Button("Create", action: {
+                        Button {
                             Task {
                                 if canCreateEvent() {
                                     await addEvent()
@@ -235,7 +235,13 @@ struct ScheduleView: View {
                                     showIncompleteFieldsAlert.toggle()
                                 }
                             }
-                        })
+                        } label: {
+                            if careeInformation.useIcons! {
+                                Image(systemName: "plus")
+                            } else {
+                                Text("Add")
+                            }
+                        }
                     }
                     
                     ToolbarItemGroup(placement: .cancellationAction) {
