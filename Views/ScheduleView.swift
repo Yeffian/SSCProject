@@ -33,6 +33,7 @@ struct ScheduleView: View {
     @State var eventDate: Date = Date.now
     
     @State var careeName: String = ""
+    @State var useIcons: Bool = false
     
     var Greeting: String {
         if careeInformation.careeName == nil {
@@ -145,15 +146,27 @@ struct ScheduleView: View {
             .navigationTitle(Greeting)
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
-                    Button("Settings", action: {
+                    Button {
                         isShowingCareeSettingsView.toggle()
-                    })
+                    } label: {
+                        if careeInformation.useIcons! {
+                            Image(systemName: "gear")
+                        } else {
+                            Text("Settings")
+                        }
+                    }
                 }
             }
             .sheet(isPresented: $isShowingCareeSettingsView, content: {
                 NavigationView {
                     Form {
-                        TextField("What is the name of the caree?", text: $careeName)
+                        Section("Caree Details") {
+                            TextField("What is the name of the caree?", text: $careeName)
+                        }
+                        
+                        Section("Application Settings") {
+                            Toggle("Use icons instead of text for certain buttons", isOn: $useIcons)
+                        }
                     }
                     .navigationTitle("Caree Information")
                     .toolbar {
@@ -161,7 +174,10 @@ struct ScheduleView: View {
                             Button("Update", action: {
                                 Task {
                                     careeInformation.careeName = careeName
+                                    careeInformation.useIcons = useIcons
+
                                     UserDefaults.standard.set(careeInformation.careeName, forKey: "CareeInformation_Name")
+                                    UserDefaults.standard.set(careeInformation.useIcons, forKey: "ApplicationSettings_UseIcons")
                                     isShowingCareeSettingsView.toggle()
                                 }
                             })
@@ -176,7 +192,9 @@ struct ScheduleView: View {
                 }
             })
             .task {
+                useIcons = UserDefaults.standard.bool(forKey: "ApplicationSettings_UseIcons")
                 careeInformation.careeName = UserDefaults.standard.string(forKey: "CareeInformation_Name")
+                careeInformation.useIcons = UserDefaults.standard.bool(forKey: "ApplicationSettings_UseIcons")
             }
             
             if (!filterByDays(targetDay: day, events: tasks).isEmpty) {

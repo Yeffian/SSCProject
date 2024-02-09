@@ -9,8 +9,10 @@ import Foundation
 
 class ApplicationSettings : ObservableObject {
     @Published var careeName: String?
+    @Published var useIcons: Bool?
     
-    init(careeName: String? = nil) {
+    init(careeName: String? = nil, useIcons: Bool? = false) {
         self.careeName = careeName
+        self.useIcons = useIcons
     }
 }

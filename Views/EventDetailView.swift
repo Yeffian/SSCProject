@@ -14,6 +14,7 @@ struct EventDetailView: View {
     @EnvironmentObject private var careeInformation: ApplicationSettings
     
     @State var careeName = ""
+    @State var useIcons: Bool = false
 
     
     var body: some View {
@@ -77,15 +78,27 @@ struct EventDetailView: View {
         .navigationTitle(event.eventName)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
-                Button("Settings", action: {
+                Button {
                     isShowingCareeSettingsView.toggle()
-                })
+                } label: {
+                    if careeInformation.useIcons! {
+                        Image(systemName: "gear")
+                    } else {
+                        Text("Settings")
+                    }
+                }
             }
         }
         .sheet(isPresented: $isShowingCareeSettingsView, content: {
             NavigationView {
                 Form {
-                    TextField("What is the name of the caree?", text: $careeName)
+                    Section("Caree Details") {
+                        TextField("What is the name of the caree?", text: $careeName)
+                    }
+                    
+                    Section("Application Settings") {
+                        Toggle("Use icons instead of text for certain buttons", isOn: $useIcons)
+                    }
                 }
                 .navigationTitle("Caree Information")
                 .toolbar {
@@ -93,7 +106,10 @@ struct EventDetailView: View {
                         Button("Update", action: {
                             Task {
                                 careeInformation.careeName = careeName
+                                careeInformation.useIcons = useIcons
+                                
                                 UserDefaults.standard.set(careeInformation.careeName, forKey: "CareeInformation_Name")
+                                UserDefaults.standard.set(careeInformation.useIcons, forKey: "ApplicationSettings_UseIcons")
                                 isShowingCareeSettingsView.toggle()
                             }
                         })
@@ -104,6 +120,10 @@ struct EventDetailView: View {
                             isShowingCareeSettingsView.toggle()
                         })
                     }
+                }
+                .task {
+                    careeInformation.careeName = UserDefaults.standard.string(forKey: "CareeInformation_Name")
+                    careeInformation.useIcons = UserDefaults.standard.bool(forKey: "ApplicationSettings_UseIcons")
                 }
             }
         })
