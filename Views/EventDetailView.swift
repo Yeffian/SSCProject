@@ -51,13 +51,15 @@ struct EventDetailView: View {
                  // TODO: Add contacts and contact view
             }
             
-            if !event.notes.isEmpty {
+            if !event.notes.isEmpty && event.notes[0] == " " {
                 Section(header: Text("Notes")) {
                     ForEach(event.notes, id: \.self) { note in
                         Text(note)
                     }
                 }
-            } 
+            } else {
+                Text("No notes")
+            }
             
             Section(header: Text("Images")) {
                 if (event.referenceImages.count > 0) {
