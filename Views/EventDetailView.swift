@@ -76,9 +76,12 @@ struct EventDetailView: View {
             }
         }
         .task {
-            careeInformation.careeName = UserDefaults.standard.string(forKey: "CareeInformation_Name")
-            careeInformation.useIcons = UserDefaults.standard.bool(forKey: "ApplicationSettings_UseIcons")
-        }   
+            useIcons = UserDefaults.standard.bool(forKey: "ApplicationSettings_UseIcons")
+            careeName = UserDefaults.standard.string(forKey: "CareeInformation_Name") ?? ""
+            
+            careeInformation.careeName = careeName
+            careeInformation.useIcons = useIcons
+        }
         .navigationTitle(event.eventName)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {

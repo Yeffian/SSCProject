@@ -193,8 +193,10 @@ struct ScheduleView: View {
             })
             .task {
                 useIcons = UserDefaults.standard.bool(forKey: "ApplicationSettings_UseIcons")
-                careeInformation.careeName = UserDefaults.standard.string(forKey: "CareeInformation_Name")
-                careeInformation.useIcons = UserDefaults.standard.bool(forKey: "ApplicationSettings_UseIcons")
+                careeName = UserDefaults.standard.string(forKey: "CareeInformation_Name") ?? ""
+                
+                careeInformation.careeName = careeName
+                careeInformation.useIcons = useIcons
             }
             
             if (!filterByDays(targetDay: day, events: tasks).isEmpty) {
