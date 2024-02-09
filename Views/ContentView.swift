@@ -60,13 +60,3 @@ struct ContentView: View {
         }
     }
 }
-
-func createDate(hour: Int, minute: Int, seconds: Int = 0) -> Date {
-    var components = DateComponents()
-    components.hour = hour
-    components.minute = minute
-    components.second = seconds
-    let calendar = Calendar.current
-    let date = calendar.date(from: components)
-    return date ?? .now
-}

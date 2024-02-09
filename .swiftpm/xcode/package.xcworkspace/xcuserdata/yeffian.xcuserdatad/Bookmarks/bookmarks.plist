@@ -10,15 +10,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>0</string>
+					<string>1</string>
 					<key>EndingLineNumber</key>
-					<string>62</string>
+					<string>61</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
 					<string>61</string>
 					<key>Timestamp</key>
-					<string>729102223.986665</string>
+					<string>729160939.832626</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -34,16 +34,13 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>}
-</string>
+				<string>}</string>
 				<key>leading</key>
 				<string>        }
     }
 </string>
 				<key>trailing</key>
 				<string>
-func createDate(hour: Int, minute: Int, seconds: Int = 0) -&gt; Date {
-    var components = DateComponents()
 </string>
 			</dict>
 			<key>title</key>
