@@ -17,6 +17,7 @@ let package = Package(
             name: "SSCProject",
             targets: ["AppModule"],
             bundleIdentifier: "yeff.dev.SSCProject",
+            teamIdentifier: "56HRAPS4XW",
             displayVersion: "1.0",
             bundleVersion: "1",
             appIcon: .placeholder(icon: .butterfly),
