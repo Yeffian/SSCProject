@@ -26,7 +26,7 @@ struct ScheduleView: View {
     
     @State var eventName: String = "";
     @State var remainder: String = "";
-    @State var location: String = "";
+    @State var location: String = "";   
     @State var notesBuffer: String = ""
     @State var notes: [String] = []
     @State var referenceImages: [Data?] = []
@@ -36,7 +36,7 @@ struct ScheduleView: View {
     @State var useIcons: Bool = false
     
     var Greeting: String {
-        if careeInformation.careeName == nil {
+        if careeInformation.careeName == nil || careeInformation.careeName!.isEmpty  {
             return "Good \(Date().localizedTimeString())!"
         } else {
             return "Good \(Date().localizedTimeString()), \(careeInformation.careeName!)!"
