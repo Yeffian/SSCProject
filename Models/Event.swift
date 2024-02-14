@@ -42,10 +42,10 @@ class Event: Identifiable {
         let hour = Calendar.current.component(.hour, from: self.date)
         let minute = Calendar.current.component(.minute, from: self.date)
         
-        if (currentHour >= hour && currentMinute >= minute && currentDay == day.dayNumberOfWeek()) {
+        if (Date.now >= self.date && currentDay == day.dayNumberOfWeek()) {
             return "Done"
         } else {
-            return "Upcoming"
+            return "Upcoming"   
         }
     }
 }
