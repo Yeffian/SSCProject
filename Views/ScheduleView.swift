@@ -51,6 +51,7 @@ struct ScheduleView: View {
         return true
     }
     
+    @MainActor
     func addEvent() async {
         notes = notesBuffer.components(separatedBy: ",")
         

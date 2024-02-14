@@ -10,7 +10,6 @@ import PhotosUI
 import SwiftData
 
 @Model
-@MainActor
 class Event: Identifiable {
     let id: UUID = UUID()
     let day: DayOfWeek
