@@ -260,7 +260,7 @@ struct ScheduleView: View {
                         })
                     }
                 }
-                .alert(canCreateEvent().reason!, isPresented: $showIncompleteFieldsAlert) {
+                .alert(canCreateEvent().reason ?? "", isPresented: $showIncompleteFieldsAlert) {
                     Button("OK", role: .cancel) { }
                 }
             }
