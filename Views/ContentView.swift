@@ -10,7 +10,7 @@ struct ContentView: View {
     
     @State var day: Int
     
-    var body: some View {
+    var body: some View {  
         TabView(selection: $day) {
             ScheduleView(day: .sunday, tasks: tasks)
             .tabItem {

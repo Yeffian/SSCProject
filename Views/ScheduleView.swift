@@ -43,12 +43,18 @@ struct ScheduleView: View {
         }
     }
     
-    func canCreateEvent() -> Bool {
+    func canCreateEvent() -> (canCreate: Bool, reason: String?) {
         if eventName == "" || remainder == "" || location == "" {
-            return false
+            return (false, "Missing mandatory fields, check eventName, remainder and location")
         }
         
-        return true
+        for task in tasks {
+            if task.eventName == eventName {
+                return (false, "Event with same name already exists")
+            }
+        }
+        
+        return (true, nil)
     }
     
     @MainActor
@@ -230,7 +236,7 @@ struct ScheduleView: View {
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         Button {
                             Task {
-                                if canCreateEvent() {
+                                if canCreateEvent().canCreate {
                                     await addEvent()
                                     // close the modal
                                     isShowingTaskAddView.toggle()
@@ -254,7 +260,7 @@ struct ScheduleView: View {
                         })
                     }
                 }
-                .alert("Please fill in all the mandatory fields.", isPresented: $showIncompleteFieldsAlert) {
+                .alert(canCreateEvent().reason!, isPresented: $showIncompleteFieldsAlert) {
                     Button("OK", role: .cancel) { }
                 }
             }

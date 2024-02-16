@@ -10,15 +10,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>1</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>61</string>
+					<string>62</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
 					<string>61</string>
 					<key>Timestamp</key>
-					<string>729160939.832626</string>
+					<string>729774155.635452</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -34,14 +34,14 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>}</string>
+				<string>}
+</string>
 				<key>leading</key>
 				<string>        }
     }
 </string>
 				<key>trailing</key>
-				<string>
-</string>
+				<string></string>
 			</dict>
 			<key>title</key>
 			<string>Error: Cannot use instance member 'CreateDate' within property initializer; property initializers run before 'self' is available</string>

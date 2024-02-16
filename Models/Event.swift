@@ -13,7 +13,7 @@ import SwiftData
 class Event: Identifiable {
     let id: UUID = UUID()
     let day: DayOfWeek
-    let eventName: String
+    @Attribute(.unique) let eventName: String
     let remainder: String
     let location: String
     let notes: [String]
