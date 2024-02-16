@@ -45,7 +45,7 @@ struct ScheduleView: View {
     
     func canCreateEvent() -> (canCreate: Bool, reason: String?) {
         if eventName == "" || remainder == "" || location == "" {
-            return (false, "Missing mandatory fields, check eventName, remainder and location")
+            return (false, "Missing mandatory fields, check event name, remainder and location")
         }
         
         for task in tasks {
