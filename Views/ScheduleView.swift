@@ -69,6 +69,7 @@ struct ScheduleView: View {
         
         let event = Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate)
         ctx.insert(event)
+        try? ctx.save()
         
         let dateComponents = Calendar.current.dateComponents([.day, .hour, .minute], from: event.date)
         let notification = Notification(identifier: UUID().uuidString,
@@ -78,7 +79,6 @@ struct ScheduleView: View {
                                         repeats: true)
         
         await notifManager.schedule(notification: notification)
-        try? ctx.save()
     }
     
     func clearEventData() {
