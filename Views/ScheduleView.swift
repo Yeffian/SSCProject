@@ -28,7 +28,7 @@ struct ScheduleView: View {
     @State var remainder: String = "";
     @State var location: String = "";   
     @State var notesBuffer: String = ""
-    @State var notes: [String] = []
+    @State var selectedNotes: [String] = []
     @State var referenceImages: [Data?] = []
     @State var eventDate: Date = Date.now
     
@@ -59,7 +59,8 @@ struct ScheduleView: View {
     
     @MainActor
     func addEvent() async {
-        notes = notesBuffer.components(separatedBy: ",")
+        selectedNotes = notesBuffer.components(separatedBy: ",")
+        print(selectedNotes)
         
         for item in photosPickerItems {
             if let data = try? await item.loadTransferable(type: Data.self) {
@@ -67,7 +68,7 @@ struct ScheduleView: View {
             }
         }
         
-        let event = Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate)
+        let event = Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: selectedNotes, referenceImages: referenceImages, date: eventDate)
         ctx.insert(event)
         try? ctx.save()
         
@@ -86,7 +87,7 @@ struct ScheduleView: View {
         remainder = "";
         location = "";
         notesBuffer = ""
-        notes = []
+        selectedNotes = []
         referenceImages = []
         eventDate = Date.now
         photosPickerItems = []
