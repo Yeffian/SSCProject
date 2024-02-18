@@ -45,5 +45,3 @@ class Event: Identifiable {
         }
     }
 }
-
-

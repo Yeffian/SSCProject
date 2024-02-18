@@ -9,8 +9,10 @@ import SwiftUI
 
 struct EventDetailView: View {
     @State var event: Event
+    @Environment(\.scenePhase) var scenePhase
     
     @State private var isShowingCareeSettingsView = false
+    @EnvironmentObject var notifManager: NotificationManager
     @EnvironmentObject private var careeInformation: ApplicationSettings
     
     @State var careeName = ""
@@ -51,6 +53,16 @@ struct EventDetailView: View {
                  // TODO: Add contacts and contact view
             }
             
+            if (!notifManager.isGranted) {
+                VStack(alignment: .leading) {
+                    Text("This app does not have permissions to send notifications")
+                    Button("Open Settings") {
+                        print("Opening settings..")
+                        notifManager.openSettings()
+                    }
+                }
+            }
+            
             if !event.notes.isEmpty {
                 Section(header: Text("Notes")) {
                     ForEach(event.notes, id: \.self) { note in
@@ -83,7 +95,7 @@ struct EventDetailView: View {
             
             careeInformation.careeName = careeName
             careeInformation.useIcons = useIcons
-        }
+        }   
         .navigationTitle(event.eventName)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -132,6 +144,13 @@ struct EventDetailView: View {
                 }
             }
         })
+        .onChange(of: scenePhase) { newValue in
+            if newValue == .active {
+                Task {
+                    await notifManager.getCurrentSettings()
+                }
+            }
+        }
     }
 }
 

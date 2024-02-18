@@ -12,6 +12,7 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
     let notificationCenter = UNUserNotificationCenter.current()
     
     @Published var pendingRequests: [UNNotificationRequest] = []
+    @Published var isGranted = false
     
     override init() {
         super.init()
@@ -27,6 +28,22 @@ class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterD
     func requestAuthorization() async throws {
         try await notificationCenter
             .requestAuthorization(options: [.sound, .badge, .alert])
+        await getCurrentSettings()
+    }
+    
+    func getCurrentSettings() async {
+        let currentSettings = await notificationCenter.notificationSettings()
+        isGranted = (currentSettings.authorizationStatus == .authorized)
+    }
+    
+    func openSettings() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            if UIApplication.shared.canOpenURL(url) {
+                Task {
+                    await UIApplication.shared.open(url)
+                }
+            }
+        }
     }
     
     func schedule(notification: Notification) async {
