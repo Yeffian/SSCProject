@@ -35,9 +35,15 @@ let package = Package(
             appCategory: .healthcareFitness
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/MAJKFL/Welcome-Sheet", .branch("main"))
+    ],
     targets: [
         .executableTarget(
             name: "AppModule",
+            dependencies: [
+                .product(name: "WelcomeSheet", package: "welcome-sheet")
+            ],
             path: ".",
             resources: [
                 .process("Resources")
