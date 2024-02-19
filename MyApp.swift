@@ -9,7 +9,7 @@ struct MyApp: App {
     @StateObject var careeInformation = ApplicationSettings()
     
     var body: some Scene {
-        WindowGroup {
+        WindowGroup {           
             ContentView(day: Date().dayNumberOfWeek()!)
         }
         .modelContainer(for: [Event.self])

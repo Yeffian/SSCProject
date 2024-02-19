@@ -75,6 +75,8 @@ struct ContentView: View {
         .task {
             // Request authorization to send notifications
             try? await notifManager.requestAuthorization()
+            
+            showPage = UserDefaults.isFirstLaunch()
         }
         .welcomeSheet(isPresented: $showPage, pages: pages)
     }
