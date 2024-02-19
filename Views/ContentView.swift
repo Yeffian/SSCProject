@@ -13,7 +13,7 @@ struct ContentView: View {
     @State var showPage = true
     
     let pages = [
-        WelcomeSheetPage(title: "Welcome to SSC Project!", rows: [
+        WelcomeSheetPage(title: "Welcome to Zeitplan!", rows: [
             WelcomeSheetPageRow(imageSystemName: "bolt.horizontal.circle",
                                             title: "Easy to Use",
                                             content: "With relatively simple UI, the app is made with navigation as a priority, so that anyone can use it, no matter their tech-saviness."),

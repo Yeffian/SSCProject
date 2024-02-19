@@ -8,20 +8,20 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "SSCProject",
+    name: "Zeitplan",
     platforms: [
         .iOS("17.0")
     ],
     products: [
         .iOSApplication(
-            name: "SSCProject",
+            name: "Zeitplan",
             targets: ["AppModule"],
             bundleIdentifier: "yeff.dev.SSCProject",
             teamIdentifier: "56HRAPS4XW",
             displayVersion: "1.0",
             bundleVersion: "1",
             appIcon: .asset("AppIcon"),
-            accentColor: .presetColor(.blue),
+            accentColor: .presetColor(.orange),
             supportedDeviceFamilies: [
                 .pad,
                 .phone
