@@ -60,7 +60,7 @@ struct ScheduleView: View {
     @MainActor
     func addEvent() async {
         selectedNotes = notesBuffer.components(separatedBy: ",")
-        print(selectedNotes)
+        let notes = selectedNotes.map { $0.trimmingCharacters(in: .whitespaces) }
         
         for item in photosPickerItems {
             if let data = try? await item.loadTransferable(type: Data.self) {
@@ -68,7 +68,7 @@ struct ScheduleView: View {
             }
         }
         
-        let event = Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: selectedNotes, referenceImages: referenceImages, date: eventDate)
+        let event = Event(day: day, eventName: eventName, remainder: remainder, location: location, notes: notes, referenceImages: referenceImages, date: eventDate)
         ctx.insert(event)
         try? ctx.save()
         

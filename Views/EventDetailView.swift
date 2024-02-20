@@ -53,17 +53,7 @@ struct EventDetailView: View {
                  // TODO: Add contacts and contact view
             }
             
-            if (!notifManager.isGranted) {
-                VStack(alignment: .leading) {
-                    Text("This app does not have permissions to send notifications")
-                    Button("Open Settings") {
-                        print("Opening settings..")
-                        notifManager.openSettings()
-                    }
-                }
-            }
-            
-            if !event.notes.isEmpty {
+            if !event.notes.isEmpty && event.notes[0].isEmpty  {
                 Section(header: Text("Notes")) {
                     ForEach(event.notes, id: \.self) { note in
                         Text(note)
@@ -153,5 +143,3 @@ struct EventDetailView: View {
         }
     }
 }
-
-
